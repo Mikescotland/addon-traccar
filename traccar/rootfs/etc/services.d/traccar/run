@@ -21,6 +21,7 @@ options+=(-jar tracker-server.jar)
 options+=(/config/traccar.xml)
 
 # Run the Traccar daemon
-cd /opt/traccar || bashio::exit.nok "Failed to switch to Traccar directory"
 
+cd /opt/traccar || bashio::exit.nok "Failed to switch to Traccar directory"
+ls -la /opt/traccar/ | bashio::log.info
 exec java "${options[@]}"
