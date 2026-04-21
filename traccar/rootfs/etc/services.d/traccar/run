@@ -1,4 +1,7 @@
 #!/command/with-contenv bashio
+echo "RUN SCRIPT TEST 12345"
+sleep 15
+exit 1
 # ==============================================================================
 # Home Assistant Community Add-on: Traccar
 # Runs the Traccar daemon
