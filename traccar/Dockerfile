@@ -1,38 +1,31 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:19.0.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
-
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 # Copy root filesystem
 COPY rootfs /
-
 # Set working dir
 WORKDIR /opt/traccar
-
-# Setup base
-ARG TRACCAR_VERSION="v6.12.2"
-ARG CACHE_BUST=1
+# Install dependencies
 RUN \
     apk add --no-cache \
         mariadb-client \
         nginx \
         nss \
         openjdk17-jre-headless \
-        xmlstarlet \
-    \
-    && curl -J -L -o /tmp/traccar.zip \
+        xmlstarlet
+# Download and install Traccar
+ARG TRACCAR_VERSION="v6.12.2"
+RUN \
+    curl -J -L -o /tmp/traccar.zip \
       "https://github.com/traccar/traccar/releases/download/${TRACCAR_VERSION}/traccar-other-${TRACCAR_VERSION#v}.zip" \
     && echo "=== ZIP SIZE ===" \
     && ls -lh /tmp/traccar.zip \
-    && echo "=== UNZIP ===" \
     && unzip -d /opt/traccar /tmp/traccar.zip \
     && echo "=== TRACCAR CONTENTS ===" \
     && ls -la /opt/traccar/ \
-    \
     && rm -fr /tmp/*
-
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
@@ -41,7 +34,6 @@ ARG BUILD_NAME
 ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
-
 # Labels
 LABEL \
     io.hass.name="${BUILD_NAME}" \
