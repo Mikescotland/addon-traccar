@@ -8,6 +8,10 @@
     WARNING: Do not remove this line!
     -->
     <entry key='config.default'>/etc/traccar/hassio.xml</entry>
+    <entry key="database.driver">com.mysql.cj.jdbc.Driver</entry>
+    <entry key="database.url">jdbc:mysql://core-mariadb:3306/traccar</entry>
+    <entry key="database.user">traccar</entry>
+    <entry key="database.password">traccar</entry>
 
     <!--
     This is the main configuration file. All your configuration parameters should be placed in this file.
