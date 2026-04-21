@@ -15,7 +15,7 @@ options+=(-Xmx512m)
 options+=("-Djava.net.preferIPv4Stack=true")
 
 # Run the JAR
-options+=(-jar tracker-server.jar)
+options+=(-jar traccar.jar)
 
 # Configuration file
 options+=(/config/traccar.xml)
