@@ -13,6 +13,7 @@ WORKDIR /opt/traccar
 
 # Setup base
 ARG TRACCAR_VERSION="v6.12.2"
+ARG CACHE_BUST=1
 RUN \
     apk add --no-cache \
         mariadb-client \
