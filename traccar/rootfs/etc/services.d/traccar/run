@@ -1,12 +1,6 @@
 #!/command/with-contenv bashio
-echo "RUN SCRIPT TEST 12345"
-sleep 15
-exit 1
-# ==============================================================================
-# Home Assistant Community Add-on: Traccar
-# Runs the Traccar daemon
-# ==============================================================================
 declare -a options
+declare status
 
 bashio::log.info "Starting Traccar server..."
 
@@ -24,31 +18,14 @@ options+=(-jar tracker-server.jar)
 options+=(/config/traccar.xml)
 
 # Run the Traccar daemon
-
-cd /opt/traccar || bashio::exit.nok "Failed to switch to Traccar directory"
-ls -la /opt/traccar/ | bashio::log.info
-exec java "${options[@]}"
-
-#!/command/with-contenv bashio
-declare -a options
-declare status
-
-set -x
-
-bashio::log.info "Starting Traccar server..."
-
-options+=(-Xms256m)
-options+=(-Xmx512m)
-options+=("-Djava.net.preferIPv4Stack=true")
-options+=(-jar tracker-server.jar)
-options+=(/config/traccar.xml)
-
 cd /opt/traccar || bashio::exit.nok "Failed to switch to Traccar directory"
 
 bashio::log.info "Working dir: $(pwd)"
-bashio::log.info "Directory listing before start:"
+bashio::log.info "Listing /opt/traccar:"
 ls -lah /opt/traccar || true
+bashio::log.info "Listing /opt/traccar/logs:"
 ls -lah /opt/traccar/logs || true
+bashio::log.info "Listing /config:"
 ls -lah /config || true
 
 java "${options[@]}" > /tmp/traccar-stdout.log 2> /tmp/traccar-stderr.log
@@ -59,9 +36,6 @@ bashio::log.error "==== STDOUT ===="
 cat /tmp/traccar-stdout.log || true
 bashio::log.error "==== STDERR ===="
 cat /tmp/traccar-stderr.log || true
-
-bashio::log.error "==== FILES UNDER /opt/traccar ===="
-find /opt/traccar -maxdepth 3 -type f | sort || true
 
 for logfile in \
   /opt/traccar/logs/tracker-server.log \
@@ -75,5 +49,4 @@ do
   fi
 done
 
-sleep 20
 exit "${status}"
