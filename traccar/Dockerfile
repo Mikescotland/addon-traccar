@@ -17,6 +17,7 @@ RUN \
         xmlstarlet
 # Download and install Traccar
 ARG TRACCAR_VERSION="v6.12.2"
+ARG CACHE_BUST=2
 RUN \
     curl -J -L -o /tmp/traccar.zip \
       "https://github.com/traccar/traccar/releases/download/${TRACCAR_VERSION}/traccar-other-${TRACCAR_VERSION#v}.zip" \
