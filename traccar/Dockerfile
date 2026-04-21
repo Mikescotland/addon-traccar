@@ -23,9 +23,12 @@ RUN \
     \
     && curl -J -L -o /tmp/traccar.zip \
       "https://github.com/traccar/traccar/releases/download/${TRACCAR_VERSION}/traccar-other-${TRACCAR_VERSION#v}.zip" \
-    \
-    && mkdir -p /opt/traccar \
+    && echo "=== ZIP SIZE ===" \
+    && ls -lh /tmp/traccar.zip \
+    && echo "=== UNZIP ===" \
     && unzip -d /opt/traccar /tmp/traccar.zip \
+    && echo "=== TRACCAR CONTENTS ===" \
+    && ls -la /opt/traccar/ \
     \
     && rm -fr /tmp/*
 
