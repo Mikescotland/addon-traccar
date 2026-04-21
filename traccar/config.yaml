@@ -1,7 +1,7 @@
 ---
-name: Traccar-1
-version: 0.31
-slug: traccar_mikescotland
+name: Traccar-12
+version: 0.32
+slug: traccar_mikescotland2
 description: Modern GPS Tracking Platform
 url: https://github.com/Mikescotland/addon-traccar/
 webui: "[PROTO:ssl]://[HOST]:[PORT:80]"
